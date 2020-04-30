@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Coding Quiz</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="viewhighscores">View Highscores</div>
+        <div class="time-interval">Time: 00</div>
+        <div class="start-btn-container">
+            <h3 class="start-header">Coding Quiz Challenge</h3>
+            <p class="quiz-description">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds.</p>
+            <button type="button" class="start-btn">Start Quiz</button>
+        </div>
+
+        <div class="question-container hide">
+            <h3 class="questions">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur illum doloribus sint earum id maxime exercitationem repudiandae corporis impedit, quo tempora animi ipsam sit minus labore perferendis provident expedita voluptas?</h3>
+            <div class="all-buttons">
+                <button type="button" class="question-btn1 button-style">Answer1</button>
+                <button type="button" class="question-btn2 button-style">Answer2</button>
+                <button type="button" class="question-btn3 button-style">Answer3</button>
+                <button type="button" class="question-btn4 button-style">Answer4</button>
+            </div>
+        </div>
+
+        <div class="done-container hide">
+            <h3 class="done">All done!</h3>
+            <p class="final-score">Your final score is: 00.</p>
+            <form>
+                <label for="initials">Enter initials:</label>
+                <input type="text" class="enter-initials" name="initials">
+                <input type="submit" class="submitbutton" value="Submit">
+            </form> 
+        </div>
+
+        <div class="highscores-container hide">
+            <h3 class="highscores">Highscores</h3>
+                <div class="ol-container">
+                    <ol class="highscores-list">
+                        <li class="li">DP: 22</li>
+                    </ol>
+                </div>
+            <button type="button" class="go-back button-style">Go Back</button>
+            <button type="button" class="clear button-style">Clear Highscores</button>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
