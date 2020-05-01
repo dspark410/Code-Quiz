@@ -11,7 +11,7 @@ body {
 .viewhighscores {
     position: relative;
 }
-.time-interval {
+.time-interval, .time-interval2 {
     position: absolute;
     right: 0;
     top: 0;
@@ -71,4 +71,8 @@ body {
 
 .ol-container {
     list-style-position: inside;
+}
+
+.center {
+    text-align: center;
 }
