@@ -10,7 +10,9 @@ body {
 
 .viewhighscores {
     position: relative;
+    color: steelblue;
 }
+
 .time-interval, .time-interval2 {
     position: absolute;
     right: 0;
@@ -62,7 +64,7 @@ body {
     border-radius: 5px;
 }
 
-.start-btn, .button-style, .submitbutton, .go-back, .clear{
+.start-btn, .button-style, #submitbutton, .go-back, .clear{
     padding: 5px 7px;
     border-radius: 10px;
     color: black;
@@ -73,6 +75,16 @@ body {
     list-style-position: inside;
 }
 
-.center {
+.alert {
+    margin: auto;
+    max-width: 60%;
     text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: solid 2px grey;
+    font-style: italic;
+    color: grey;
 }
+
+
+

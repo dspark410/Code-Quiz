@@ -11,17 +11,20 @@ var questionsBtn3 = document.querySelector(".question-btn3");
 var questionsBtn4 = document.querySelector(".question-btn4");
 
 var timer = document.querySelector(".time-interval");
-var timer2 = document.querySelector(".time-interval2");
-var timerStart = 75
+var timerStart = 75;
 
 var doneContainer = document.querySelector(".done-container");
 var finalScore = document.querySelector(".final-score");
-var submitBtn = document.querySelector(".subtmitbutton");
+var submitBtn = document.querySelector("#submitbutton");
 
-var highscoresContainer = document.querySelector(".highscores-container")
+var viewHighScores = document.querySelector(".viewhighscores");
+var highscoresContainer = document.querySelector(".highscores-container");
 
-var goBack = document.querySelector(".go-back")
-var clear = document.querySelector(".clear")
+var enterInitials = document.querySelector(".enter-initials");
+var highScoresList = document.querySelector(".highscores-list");
+
+var goBack = document.querySelector(".go-back");
+var clear = document.querySelector(".clear");
 
 var quizQuestions = [
     {
@@ -76,85 +79,147 @@ function startQuiz() {
     showQuiz();
 }
 
-var lastQuestionsindex = quizQuestions.length-1
-var questionsIndex = 0
-
 function showQuiz() {
-    timer.classList.add("hide");
     var q = quizQuestions[questionsIndex]
     questions.textContent = q.question
     questionsBtn1.textContent = q.choice1
     questionsBtn2.textContent = q.choice2
     questionsBtn3.textContent = q.choice3
     questionsBtn4.textContent = q.choice4
-}
+};
 
-questionsBtn1.addEventListener("click", checkAnswer)
-questionsBtn2.addEventListener("click", checkAnswer)
-questionsBtn3.addEventListener("click", checkAnswer)
-questionsBtn4.addEventListener("click", checkAnswer)
+var lastQuestionsindex = quizQuestions.length-1;
+var questionsIndex = 0;
+
+questionsBtn1.addEventListener("click", checkAnswer);
+questionsBtn2.addEventListener("click", checkAnswer);
+questionsBtn3.addEventListener("click", checkAnswer);
+questionsBtn4.addEventListener("click", checkAnswer);
 
 
 function checkAnswer(answer) {
     if(answer.target.textContent === quizQuestions[questionsIndex].correct) {
         correctAnswer();
     } else {
-        wrongAnswer();
+        //Delay in time subtraction redering on the screen.
         timerStart -= 10
+        wrongAnswer();     
     }
     
     if (questionsIndex < lastQuestionsindex) {
         questionsIndex++
         showQuiz();
-    }else {
+    } else {
+        finalScore.textContent = "Your final score is: " + timerStart + ".";
         doneContainer.classList.remove("hide");
         questionContainer.classList.add("hide");
+        questionsIndex = 0;  
     }
 }
 
-function correctAnswer() {
-    var element = document.createElement("p")
-    element.textContent = "Correct!"
-    allButtons.appendChild(element)
-}   
-    
-function wrongAnswer() {
-    var element = document.createElement("p")
-    element.textContent = "Wrong!"
-    allButtons.appendChild(element)
-}
+    function correctAnswer() {
+        var element = document.createElement("p");
+        element.textContent = "Correct!";
+        element.classList.add("alert");
+        document.body.appendChild(element);
+        setTimeout(function() {
+        document.body.removeChild(element);
+        
+        }, 700);
+    }
+
+    function wrongAnswer() {
+        var element = document.createElement("p");
+        element.textContent = "Wrong!";
+        element.classList.add("alert");
+        document.body.appendChild(element);
+        setTimeout(function() {
+        document.body.removeChild(element);
+        
+        }, 700);
+    }
 
 function setTimer() {
-    var timerInterval = setInterval(function () {
+    var timerInterval = setInterval(function() {
+        if (doneContainer.classList.value === "done-container") {
+            //Delay in time rendering on the screen.
+            clearInterval(timerInterval);
+            timer.textContent = "Time: " + timerStart;
+            return;
+        }
+    
         timerStart--
-        timer2.textContent = "Time: " + timerStart;
+        timer.textContent = "Time: " + timerStart;
         
         if (timerStart === 0) {
             clearInterval(timerInterval);
             doneContainer.classList.remove("hide");
             questionContainer.classList.add("hide"); 
-        }
+            finalScore.textContent = "Your final score is: " + timerStart + "."
+        } 
     }, 1000);
+    
 } 
 
-submitBtn.addEventListener("click", showScores);
+submitBtn.addEventListener("click", submitScore);
 
-function showScores() {
-    preventDefault();
-    doneContainer.classList.add("hide");
-    highscoresContainer.classList.remove("hide");
+function submitScore(event) {
+
+    event.preventDefault();
+
+
+    if (!/[^a-zA-Z]/.test(enterInitials.value) && enterInitials.value.length === 2) {
+
+        var li = document.createElement("li");
+        var inputValue = enterInitials.value
+        li.textContent = inputValue.toUpperCase() + " - " + timerStart;
+        highScoresList.appendChild(li);
+        enterInitials.value = "";
+
+        localStorage.setItem("scores", (li.textContent));
+
+
+        doneContainer.classList.add("hide");
+        highscoresContainer.classList.remove("hide");
+        viewHighScores.classList.add("hide");
+    
+        } else {
+        alert("Please enter your initials");
+        enterInitials.value = "";
+        }
 }
 
+goBack.addEventListener("click", restartQuiz);
 
-
+function restartQuiz() {
+    startBtnContainer.classList.remove("hide");
+    highscoresContainer.classList.add("hide");
+    startBtn.classList.remove("hide");
+    viewHighScores.classList.remove("hide");
+    timer.classList.remove("hide");
+    timerStart = 75;
+    timer.textContent = "Time: " + timerStart;
     
+}
 
-// questionsBtn3.addEventListener("click", clickButtons);
+clear.addEventListener("click", clearScores);
 
-// function clickButtons() {
-//     if (quizQuestions[0].choice3 === quizQuestions[0].correct)
-//     var element = document.createElement("p")
-//     element.textContent = "You are correct!"
-//     element.style.textAlign =  "center"
-//     allButtons.appendChild(element)
+function clearScores() { 
+    while (highScoresList.firstChild) {
+      highScoresList.removeChild(highScoresList.firstChild);
+    }
+ }
 
+ viewHighScores.addEventListener("click", linkHighScore);
+
+ function linkHighScore() {
+
+    doneContainer.classList.add("hide");
+    questionContainer.classList.add("hide");
+    startBtnContainer.classList.add("hide");
+    timer.classList.add("hide");
+    viewHighScores.classList.add("hide");
+    
+    highscoresContainer.classList.remove("hide");
+    
+ }

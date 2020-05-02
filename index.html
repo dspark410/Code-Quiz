@@ -11,15 +11,14 @@
 
     <body>
         <div class="viewhighscores">View Highscores</div>
-        <div class="time-interval">Time: 0</div>
         <div class="start-btn-container">
             <h3 class="start-header">Coding Quiz Challenge</h3>
             <p class="quiz-description">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds.</p>
             <button type="button" class="start-btn">Start Quiz</button>
         </div>
 
+        <div class="time-interval">Time: 75</div>
         <div class="question-container hide">
-            <div class="time-interval2">Time: 75</div>
             <h3 class="questions">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur illum doloribus sint earum id maxime exercitationem repudiandae corporis impedit, quo tempora animi ipsam sit minus labore perferendis provident expedita voluptas?</h3>
             <div class="all-buttons">
                 <button type="button" class="question-btn1 button-style">Answer1</button>
@@ -35,16 +34,14 @@
             <form>
                 <label for="initials">Enter initials:</label>
                 <input type="text" class="enter-initials" name="initials">
-                <input type="submit" class="submitbutton" value="Submit">
+                <input type="submit" id="submitbutton" value="Submit">
             </form> 
         </div>
 
         <div class="highscores-container hide">
             <h3 class="highscores">Highscores</h3>
                 <div class="ol-container">
-                    <ol class="highscores-list">
-                        <li class="li">DP: 22</li>
-                    </ol>
+                    <ol class="highscores-list"></ol>
                 </div>
             <button type="button" class="go-back button-style">Go Back</button>
             <button type="button" class="clear button-style">Clear Highscores</button>
