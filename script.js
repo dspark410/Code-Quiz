@@ -101,7 +101,7 @@ function checkAnswer(answer) {
     if(answer.target.textContent === quizQuestions[questionsIndex].correct) {
         correctAnswer();
     } else {
-        //Delay in time subtraction redering on the screen.
+        //Delay in time subtraction rendering on the screen.
         timerStart -= 10
         wrongAnswer();     
     }
@@ -160,6 +160,11 @@ function setTimer() {
     }, 1000);
     
 } 
+var scores = [];
+
+if (getIt()){
+    scores = JSON.parse(getIt())
+}
 
 submitBtn.addEventListener("click", submitScore);
 
@@ -170,28 +175,36 @@ function submitScore(event) {
 
     if (!/[^a-zA-Z]/.test(enterInitials.value) && enterInitials.value.length === 2) {
 
-        var li = document.createElement("li");
-        var inputValue = enterInitials.value
-        li.textContent = inputValue.toUpperCase() + " - " + timerStart;
-        highScoresList.appendChild(li);
-        enterInitials.value = "";
+        var player = {
+            name: enterInitials.value,
+            score: timerStart
+        }
 
-        localStorage.setItem("scores", (li.textContent));
-
-
+        scores.push(player);
+        highScoresList.innerHTML = ""
+        for (let i = 0; i < scores.length; i++) {
+            var li = document.createElement("li");
+            var inputValue = scores[i].name
+            li.textContent = inputValue.toUpperCase() + " - " + scores[i].score;
+            highScoresList.appendChild(li);
+        }
+        
         doneContainer.classList.add("hide");
         highscoresContainer.classList.remove("hide");
         viewHighScores.classList.add("hide");
-    
+
         } else {
         alert("Please enter your initials");
         enterInitials.value = "";
         }
+    
+    enterInitials.value = ""
+    localStorage.setItem("scores", JSON.stringify(scores));
 }
 
-goBack.addEventListener("click", restartQuiz);
+goBack.addEventListener("click", goBackQuiz);
 
-function restartQuiz() {
+function goBackQuiz() {
     startBtnContainer.classList.remove("hide");
     highscoresContainer.classList.add("hide");
     startBtn.classList.remove("hide");
@@ -199,7 +212,6 @@ function restartQuiz() {
     timer.classList.remove("hide");
     timerStart = 75;
     timer.textContent = "Time: " + timerStart;
-    
 }
 
 clear.addEventListener("click", clearScores);
@@ -207,7 +219,11 @@ clear.addEventListener("click", clearScores);
 function clearScores() { 
     while (highScoresList.firstChild) {
       highScoresList.removeChild(highScoresList.firstChild);
+      localStorage.clear("scores");
+      scores = []
+
     }
+    
  }
 
  viewHighScores.addEventListener("click", linkHighScore);
@@ -222,4 +238,8 @@ function clearScores() {
     
     highscoresContainer.classList.remove("hide");
     
+ }
+
+function getIt() {
+     return localStorage.getItem("scores");
  }
