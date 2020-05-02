@@ -2,7 +2,7 @@
 
 ## Description
 
-This is an application that demonstrates a multiple choice quiz that will record the users score based on time completion. The user can view their score in the highscores link. THe user can take the quiz again to improve their previous score.
+This is an application that demonstrates a multiple choice quiz that will record the users score based on how fast it is completed. The user can view their score in the highscores link. The user can also re-take the quiz if it is desired. All scores will be saved in local storage.
 
 
 ## Usage
