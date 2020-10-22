@@ -2,7 +2,7 @@
 
 ## Description
 
-This is an application that demonstrates a multiple choice quiz that will record the users score based on how fast it is completed. The user can view their score in the highscores link. The user can also re-take the quiz if it is desired. All scores will be saved in local storage.
+An app that demonstrates a multiple choice quiz that records the users score when the game ends. The user can view their score in the highscore and re-take the quiz. All quiz scores are saved in localstorage.
 
 
 ## Usage
